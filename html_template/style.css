@@ -1,0 +1,21 @@
+body {
+    background-color: #121212;
+    color: white;
+}
+
+.border {
+    border-width: .5rem;
+    border-color: grey;
+}
+
+.option-selector {
+    height: 15vh;
+}
+
+.option-field {
+    padding: 1rem;
+}
+
+.visualization-box {
+    height: 85vh;
+}
