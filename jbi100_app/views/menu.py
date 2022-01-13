@@ -1,6 +1,91 @@
 from dash import dcc, html
-from ..config import color_list1, color_list2
+from ..config import year_selector, color_list2, color_list1
 
+
+def generate_year_selector():
+    """
+
+    :return: the year selector content.
+    """
+    return html.Div(
+        children=[
+            html.P("Choose a year which you want to visualize."),
+            dcc.Dropdown(
+                id="yearSelector",
+                options=[{"label": x, "value": x} for x in year_selector],
+                value=year_selector[0]
+            )
+        ]
+    )
+
+def generate_vis_toggle():
+    """
+
+    :return: Returns the visualization toggle
+    """
+    return html.Div(
+        children=[
+            html.P("Toggle the side panel with this button."),
+            html.Button(id="toggleSide", children="Toggle Side Vis")
+        ]
+    )
+
+def generate_buttons():
+    """
+
+    :return: the buttons used for the visualization
+    """
+    return html.Div(
+        children=[
+            html.Div(className="container", children=[
+                html.Div(className="two columns", children=[
+                    html.H5("InfraGraph"),
+                    html.P("The accident visualizer.")
+                ]),
+                html.Div(className="four columns", children=[
+                    html.P("Filter on the road type."),
+                    dcc.Dropdown(
+                        id="roadTypeSelector",
+                        options=[
+                            {'label': 'Roudabout', 'value': '1'},
+                            {'label': 'One way street', 'value': '2'},
+                            {'label': 'Dual carriageway', 'value': '3'},
+                            {'label': 'Single carriageway', 'value': '6'},
+                            {'label': 'Slip road', 'value': '7'},
+                            {'label': 'Unknown', 'value': '9'},
+                            {'label': 'One way street / Sliproad', 'value': '12'}
+                        ],
+                        value=['1'],
+                        multi=True,
+                        style={"max-height": "120px"}
+                    )
+                ]),
+                html.Div(className="four columns", children=[
+                    html.P("Filter on the weather condition."),
+                    dcc.Dropdown(
+                        id="weatherConditionSelector",
+                        options=[
+                            {'label': 'Fine, no high winds', 'value': '1'},
+                            {'label': 'Raining, no high winds', 'value': '2'},
+                            {'label': 'Snowing, no high winds', 'value': '3'},
+                            {'label': 'Fine, high winds', 'value': '4'},
+                            {'label': 'Raining, high winds', 'value': '5'},
+                            {'label': 'Snowing, high winds', 'value': '6'},
+                            {'label': 'Fog or mist', 'value': '7'},
+                            {'label': 'Other', 'value': '8'},
+                            {'label': 'Unknown', 'value': '9'}
+                        ],
+                        value=['1'],
+                        multi=True,
+                        style={"max-height": "120px"}
+                    )
+                ]),
+
+
+            ])
+
+        ]
+    )
 
 def generate_description_card():
     """

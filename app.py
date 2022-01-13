@@ -1,5 +1,5 @@
 from jbi100_app.main import app
-from jbi100_app.views.menu import make_menu_layout
+from jbi100_app.views.menu import make_menu_layout, generate_year_selector, generate_vis_toggle, generate_buttons
 from jbi100_app.views.scatterplot import Scatterplot
 
 from dash import html
@@ -18,17 +18,25 @@ if __name__ == '__main__':
     app.layout = html.Div(
         id="app-container",
         children=[
+            html.Div(
+                id="topRow",
+                className="container",
+                children=[html.Div(id="left-title", className="two columns border-right", children=generate_year_selector()),
+                          html.Div(className="eight columns", children=generate_buttons()),
+                          html.Div(id="right-title", className="two columns", children=generate_vis_toggle())]
+            ),
+
             # Left column
             html.Div(
                 id="left-column",
-                className="three columns",
+                className="nine columns",
                 children=make_menu_layout()
             ),
 
             # Right column
             html.Div(
                 id="right-column",
-                className="nine columns",
+                className="three columns",
                 children=[
                     scatterplot1,
                     scatterplot2
