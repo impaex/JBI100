@@ -6,6 +6,38 @@ body {
     margin: 0px;
 }
 
+#topRow {
+    background-color: #f4f4f4;
+    padding: 1rem 0rem 1rem 0rem;
+    width: 100%;
+}
+
+#left-title {
+    border-right: 1px solid gray;
+}
+
+#right-title {
+    border-left: 1px solid gray;
+}
+
+/* the multi dropdown selectors require different css */
+#react-select-3--value {
+    height: 80px;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+#react-select-4--value {
+    height: 80px;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.vr {
+    border-left: 3px solid gray;
+    height: 1rem;
+}
+
 #left-column {
     padding: 20px 2rem;
     display: flex;
@@ -14,7 +46,6 @@ body {
 }
 
 #right-column {
-    background-color: #f4f4f4;
     padding: 0rem 2rem;
     min-height: 100vh;
 }
