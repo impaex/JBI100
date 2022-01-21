@@ -1,6 +1,10 @@
 from jbi100_app.main import app
 from jbi100_app.views.menu import make_menu_layout, generate_year_selector, generate_vis_toggle, generate_buttons
+
 from jbi100_app.views.scatterplot import Scatterplot
+from jbi100_app.views.map import Map
+
+from jbi100_app.data import get_data
 
 from dash import html
 import plotly.express as px
@@ -9,11 +13,13 @@ from dash.dependencies import Input, Output
 
 if __name__ == '__main__':
     # Create data
-    df = px.data.iris()
+    df = get_data()
+    df1 = px.data.iris()
 
-    # Instantiate custom views
-    scatterplot1 = Scatterplot("Scatterplot 1", 'sepal_length', 'sepal_width', df)
-    scatterplot2 = Scatterplot("Scatterplot 2", 'petal_length', 'petal_width', df)
+    # Instantiatse custom views
+    scatterplot1 = Scatterplot("Scatterplot 1", 'sepal_length', 'sepal_width', df1)
+    scatterplot2 = Scatterplot("Scatterplot 2", 'petal_length', 'petal_width', df1)
+    map = Map("Map Of Accidents", df)
 
     app.layout = html.Div(
         id="app-container",
@@ -30,7 +36,7 @@ if __name__ == '__main__':
             html.Div(
                 id="left-column",
                 className="nine columns",
-                children=make_menu_layout()
+                children=map
             ),
 
             # Right column
