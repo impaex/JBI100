@@ -12,5 +12,7 @@ data.dropna(subset=['longitude', 'latitude'], inplace=True)
 # Drop the unnamed column
 data.drop('Unnamed: 0', axis=1, inplace=True)
 # Save without index row
+data['longitude'] = pd.to_numeric(data['longitude'])
+data['latitude'] = pd.to_numeric(data['latitude'])
 print('done cleaning')
 data.to_csv('cleaned_data.csv', index=False)
