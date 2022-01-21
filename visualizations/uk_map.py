@@ -1,8 +1,9 @@
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
+import os
 
-data = pd.read_csv(r"C:\Users\20202478\Documents\School\Year 2\Q2\JBI100 Visualization\Visualization_full.csv")
+data = pd.read_csv(os.path.join(os.path.dirname(__file__), '../dataset/Visualization_full.csv'))
 
 #reducing data for faster loading time
 red_data = data[data["accident_year"] == 2015]
