@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 import os
 
-data = pd.read_csv(os.path.join(os.path.dirname(__file__), '../dataset/Visualization_full.csv'))
+data = pd.read_csv(os.path.join(os.path.dirname(__file__), '../dataset/cleaned_data.csv'))
 
 #reducing data for faster loading time
 red_data = data[data["accident_year"] == 2015]
