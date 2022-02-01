@@ -11,5 +11,5 @@ button.addEventListener('click', e => {
     }
 });
 
-}, 1000);
+}, 5000);
 
