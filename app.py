@@ -5,6 +5,7 @@ from jbi100_app.views.scatterplot import Scatterplot
 from jbi100_app.views.map import Map
 from jbi100_app.views.accidents_per_hour_of_day import AccidentsPerHour
 from jbi100_app.views.accidents_per_vehicle_type import AccidentsPerVehicleType
+from jbi100_app.views.accidents_per_light_condition import AccidentsPerLightCondition
 from jbi100_app.views.accidents_per_day_of_year import AccidentPerDayOfYear
 from jbi100_app.data import get_data
 
@@ -20,6 +21,7 @@ if __name__ == '__main__':
     map = Map("Map Of Accidents", df)
     accidentsperhour = AccidentsPerHour("Histogram Of Accidents Per Hour", df)
     accidentspertype = AccidentsPerVehicleType("Histogram Of Accidents Per Hour", df)
+    accidentsperlight = AccidentsPerLightCondition("Histogram of accidents per light condition", df)
     #accidentsperday = AccidentPerDayOfYear("Line Chart Of Accidents Per Day Per Year", df)
 
     app.layout = html.Div(
@@ -36,8 +38,18 @@ if __name__ == '__main__':
             # Left column
             html.Div(
                 id="left-column",
-                className="nine columns",
+                className="six columns",
                 children=map
+            ),
+
+            # Middle column
+            html.Div(
+                id="middle-column",
+                className="three columns",
+                children=[
+                    accidentspertype,
+                    accidentsperlight
+                ]
             ),
 
             # Right column
@@ -45,30 +57,52 @@ if __name__ == '__main__':
                 id="right-column",
                 className="three columns",
                 children=[
-                    accidentsperhour,
-                    accidentspertype,
-                    #accidentsperday
+                    accidentsperhour
                 ],
             ),
         ],
     )
 
     # Define interactions
-    # @app.callback(
-    #     Output(scatterplot1.html_id, "figure"), [
-    #     Input("select-color-scatter-1", "value"),
-    #     Input(scatterplot2.html_id, 'selectedData')
-    # ])
-    # def update_scatter_1(selected_color, selected_data):
-    #     return scatterplot1.update(selected_color, selected_data)
-    #
-    # @app.callback(
-    #     Output(scatterplot2.html_id, "figure"), [
-    #     Input("select-color-scatter-2", "value"),
-    #     Input(scatterplot1.html_id, 'selectedData')
-    # ])
-    # def update_scatter_2(selected_color, selected_data):
-    #     return scatterplot2.update(selected_color, selected_data)
+    # Map interaction
+    @app.callback(Output(map.html_id, "figure"),
+                  Output(accidentsperlight.html_id, "figure"),
+                  Output(accidentspertype.html_id, "figure"),
+                  Input('yearSelector', 'value'),
+                  Input('roadTypeSelector', 'value'),
+                  Input('weatherConditionSelector', 'value'),
+                  Input('vehicleTypeSelector', 'value'),
+                  Input('lightConditionSelector', 'value')
+                  )
+    def year_selector(year, roadtype, weathercond, vehicletype, lightcond):
+        temp = df[df.accident_year == year]
 
+        # if roadtype is not None:
+        #     if len(roadtype) > 0:
+        #         temp = temp[temp.road_type.isin(roadtype)]
+        #     else:
+        #         temp = temp[temp.road_type.isin(df.road_type.unique())]
+
+        # If it is none, it has not been interacted with yet, no need to do anything.
+        if weathercond is not None:
+            if len(weathercond) > 0:
+                temp = temp[temp.weather_conditions.isin(weathercond)]
+            else:
+                # Resets this field with original values of df
+                temp = temp[temp.weather_conditions.isin(df.weather_conditions.unique())]
+
+        if vehicletype is not None:
+            if len(vehicletype) > 0:
+                temp = temp[temp.vehicle_type.isin(vehicletype)]
+            else:
+                temp = temp[temp.vehicle_type.isin(df.vehicle_type.unique())]
+
+        if lightcond is not None:
+            if len(lightcond) > 0:
+                temp = temp[temp.light_conditions.isin(lightcond)]
+            else:
+                temp = temp[temp.light_conditions.isin(df.light_conditions.unique())]
+
+        return map.update(selected_year=temp), accidentsperlight.update(selected_year=temp), accidentspertype.update(selected_year=temp)
 
     app.run_server(debug=False, dev_tools_ui=False)
