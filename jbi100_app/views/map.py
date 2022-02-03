@@ -16,13 +16,15 @@ class Map(html.Div):
         super().__init__(
             children=[
                 html.H6("Interactive Map of Accidents"),
-                dcc.Graph(figure=self.update())
+                dcc.Graph(figure=self.update(), id=self.html_id)
             ]
         )
 
-    def update(self):
-        #df1 = self.df[self.df['accident_year'] == 2020]
-        self.fig = px.scatter_mapbox(self.df,
+    def update(self, selected_year=None):
+        if selected_year is None:
+            selected_year = self.df
+
+        self.fig = px.scatter_mapbox(selected_year,
                 lat="latitude",
                 lon="longitude",
                 hover_name="accident_index",
@@ -32,12 +34,12 @@ class Map(html.Div):
                 color='accident_severity',
                 color_discrete_sequence=['darkblue', 'blue', 'lightblue'],
 
-                zoom=4,
+                zoom=5,
                 height=700,
-                custom_data=[self.df['accident_index'], self.df['date'], self.df['latitude'], self.df['longitude'],
-                             self.df['speed_limit'], self.df['vehicle_type'], self.df['road_surface_conditions'],
-                             self.df['vehicle_manoeuvre'], self.df['accident_severity'], self.df['light_conditions'],
-                             self.df['hour']]
+                custom_data=[selected_year['accident_index'], selected_year['date'], selected_year['latitude'], selected_year['longitude'],
+                             selected_year['speed_limit'], selected_year['vehicle_type'], selected_year['road_surface_conditions'],
+                             selected_year['vehicle_manoeuvre'], selected_year['accident_severity'], selected_year['light_conditions'],
+                             selected_year['hour']]
                 )
         self.fig.update_traces(hovertemplate=
                             '<b>Accident %{customdata[0]}</b><br>' +
@@ -58,5 +60,4 @@ class Map(html.Div):
                                title_y=0.95,
                                title_font_color="black"
                                )
-
         return self.fig

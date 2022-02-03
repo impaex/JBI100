@@ -14,13 +14,16 @@ class AccidentsPerVehicleType(html.Div):
         # Equivalent to `html.Div([...])`
         super().__init__(
             children=[
-                html.H6("Amount of accidents per light condition"),
-                dcc.Graph(figure=self.update())
+                html.H6("Amount of accidents per vehicle type"),
+                dcc.Graph(figure=self.update(), id=self.html_id)
             ]
         )
 
-    def update(self):
-        self.fig = px.histogram(self.df, x='light_conditions')
+    def update(self, selected_year=None):
+        if selected_year is None:
+            selected_year = self.df
+
+        self.fig = px.histogram(selected_year, x='vehicle_type')
         self.fig.update_layout(bargap=0.2)
 
         return self.fig
