@@ -38,10 +38,10 @@ def generate_buttons():
     """
     return html.Div(
         children=[
-            html.Div(className="container", children=[
+            html.Div(className="container remove-margin", children=[
                 html.Div(className="two columns", children=[
                     html.H5("InfraGraph"),
-                    html.P("The accident visualizer.")
+                    html.P("The accident visualizer."),
                 ]),
                 html.Div(className="container ten columns", children=[
                     html.Div(className="three columns", children=[
@@ -49,13 +49,13 @@ def generate_buttons():
                         dcc.Dropdown(
                             id="roadTypeSelector",
                             options=[
-                                {'label': 'Roudabout', 'value': 1},
-                                {'label': 'One way street', 'value': 2},
-                                {'label': 'Dual carriageway', 'value': 3},
-                                {'label': 'Single carriageway', 'value': 6},
-                                {'label': 'Slip road', 'value': 7},
-                                {'label': 'Unknown', 'value': 9},
-                                {'label': 'One way street / Sliproad', 'value': 12}
+                                {'label': 'Roudabout', 'value': 'Roudabout'},
+                                {'label': 'One way street', 'value': 'One way street'},
+                                {'label': 'Dual carriageway', 'value': 'Dual carriageway'},
+                                {'label': 'Single carriageway', 'value': 'Single carriageway'},
+                                {'label': 'Slip road', 'value': 'Slip road'},
+                                {'label': 'Unknown', 'value': 'Unknown'},
+                                {'label': 'One way street / Sliproad', 'value': 'One way street / Sliproad'}
                             ],
                             multi=True,
                             style={"max-height": "120px"}
@@ -66,15 +66,15 @@ def generate_buttons():
                         dcc.Dropdown(
                             id="weatherConditionSelector",
                             options=[
-                                {'label': 'Fine, no high winds', 'value': 1},
-                                {'label': 'Raining, no high winds', 'value': 2},
-                                {'label': 'Snowing, no high winds', 'value': 3},
-                                {'label': 'Fine, high winds', 'value': 4},
-                                {'label': 'Raining, high winds', 'value': 5},
-                                {'label': 'Snowing, high winds', 'value': 6},
-                                {'label': 'Fog or mist', 'value': 7},
-                                {'label': 'Other', 'value': 8},
-                                {'label': 'Unknown', 'value': 9}
+                                {'label': 'Fine, no high winds', 'value': 'Fine, no high winds'},
+                                {'label': 'Raining, no high winds', 'value': 'Raining, no high winds'},
+                                {'label': 'Snowing, no high winds', 'value': 'Snowing, no high winds'},
+                                {'label': 'Fine, high winds', 'value': 'Fine, high winds'},
+                                {'label': 'Raining, high winds', 'value': 'Raining, high winds'},
+                                {'label': 'Snowing, high winds', 'value': 'Snowing, high winds'},
+                                {'label': 'Fog or mist', 'value': 'Fog or mist'},
+                                {'label': 'Other', 'value': 'Other'},
+                                {'label': 'Unknown', 'value': 'Unknown'}
                             ],
                             multi=True,
                             style={"max-height": "120px"}
@@ -85,27 +85,27 @@ def generate_buttons():
                         dcc.Dropdown(
                             id="vehicleTypeSelector",
                             options=[
-                                {'label': 'Pedal cycle', 'value': 1},
-                                {'label': 'Motorcycle <= 50cc', 'value': 2},
-                                {'label': 'Motorcycle <=125cc', 'value': 3},
-                                {'label': 'Motorcycle 125-500cc', 'value': 4},
-                                {'label': 'Motorcycle >500cc', 'value': 5},
-                                {'label': 'Taxi / Private Hired', 'value': 8},
-                                {'label': 'Car', 'value': 9},
-                                {'label': 'Minibus', 'value': 10},
-                                {'label': 'Bus', 'value': 11},
-                                {'label': 'Ridden Horse', 'value': 16},
-                                {'label': 'Agricultural vehicle', 'value': 17},
-                                {'label': 'Tram', 'value': 18},
-                                {'label': 'Van', 'value': 19},
-                                {'label': 'Goods >3.5t and <7.5t', 'value': 20},
-                                {'label': 'Goods >7.5t', 'value': 21},
-                                {'label': 'Mobility Scooter', 'value': 22},
-                                {'label': 'Electric Motorcycle', 'value': 23},
-                                {'label': 'Other', 'value': 90},
-                                {'label': 'Motorcycle unknown cc', 'value': 97},
-                                {'label': 'Goods vehicle unknown weight', 'value': 98},
-                                {'label': 'Unknown vehicle type', 'value': 99}
+                                {'label': 'Pedal cycle', 'value': 'Pedal cycle'},
+                                {'label': 'Motorcycle <= 50cc', 'value': 'Motorcycle <= 50cc'},
+                                {'label': 'Motorcycle <=125cc', 'value': 'Motorcycle <=125cc'},
+                                {'label': 'Motorcycle 125-500cc', 'value': 'Motorcycle 125-500cc'},
+                                {'label': 'Motorcycle >500cc', 'value': 'Motorcycle >500cc'},
+                                {'label': 'Taxi / Private Hired', 'value': 'Taxi / Private Hired'},
+                                {'label': 'Car', 'value': 'Car'},
+                                {'label': 'Minibus', 'value': 'Minibus'},
+                                {'label': 'Bus', 'value': 'Bus'},
+                                {'label': 'Ridden Horse', 'value': 'Ridden Horse'},
+                                {'label': 'Agricultural vehicle', 'value': 'Agricultural vehicle'},
+                                {'label': 'Tram', 'value': 'Tram'},
+                                {'label': 'Van', 'value': 'Van'},
+                                {'label': 'Goods >3.5t and <7.5t', 'value': 'Goods >3.5t and <7.5t'},
+                                {'label': 'Goods >7.5t', 'value': 'Goods >7.5t'},
+                                {'label': 'Mobility Scooter', 'value': 'Mobility Scooter'},
+                                {'label': 'Electric Motorcycle', 'value': 'Electric Motorcycle'},
+                                {'label': 'Other', 'value': 'Other'},
+                                {'label': 'Motorcycle unknown cc', 'value': 'Motorcycle unknown cc'},
+                                {'label': 'Goods vehicle unknown weight', 'value': 'Goods vehicle unknown weight'},
+                                {'label': 'Unknown vehicle type', 'value': 'Unknown vehicle type'}
                             ],
                             multi=True,
                             style={"max-height": "120px"}
@@ -116,18 +116,19 @@ def generate_buttons():
                         dcc.Dropdown(
                             id="lightConditionSelector",
                             options=[
-                                {'label': 'Daylight', 'value': 1},
-                                {'label': 'Darkness - lights lit', 'value': 4},
-                                {'label': 'Darkness - lights unlit', 'value': 5},
-                                {'label': 'Darkness - no lighting', 'value': 6},
-                                {'label': 'Darkness - lighting unknown', 'value': 7}
+                                {'label': 'Daylight', 'value': 'Daylight'},
+                                {'label': 'Darkness - lights lit', 'value': 'Darkness - lights lit'},
+                                {'label': 'Darkness - lights unlit', 'value': 'Darkness - lights unlit'},
+                                {'label': 'Darkness - no lighting', 'value': 'Darkness - no lighting'},
+                                {'label': 'Darkness - lighting unknown', 'value': 'Darkness - lighting unknown'}
                             ],
                             multi=True,
                             style={"max-height": "120px"}
                         )
                     ])
                 ])
-            ])
+            ]),
+            html.P("If no graphs are visible, there's no data for the given filters.")
 
         ]
     )

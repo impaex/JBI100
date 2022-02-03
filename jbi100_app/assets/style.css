@@ -20,6 +20,10 @@ body {
     border-left: 1px solid gray;
 }
 
+.remove-margin {
+    margin-right: 0px;
+}
+
 /* the multi dropdown selectors require different css */
 #react-select-3--value {
     height: 80px;

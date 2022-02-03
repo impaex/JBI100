@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 
-
+# Template from course template
 class Map(html.Div):
 
     def __init__(self, name, df):
@@ -21,6 +21,7 @@ class Map(html.Div):
         )
 
     def update(self, selected_year=None):
+        # Code derived from plotly docs
         if selected_year is None:
             selected_year = self.df
 
@@ -28,12 +29,9 @@ class Map(html.Div):
                 lat="latitude",
                 lon="longitude",
                 hover_name="accident_index",
-                hover_data=["date", "time", "vehicle_type", "casualty_type", "vehicle_manoeuvre",
-                            "road_surface_conditions", "light_conditions", "speed_limit"],
-
                 color='accident_severity',
                 color_discrete_sequence=['darkblue', 'blue', 'lightblue'],
-
+                labels={"accident_severity": "Severity"},
                 zoom=5,
                 height=700,
                 custom_data=[selected_year['accident_index'], selected_year['date'], selected_year['latitude'], selected_year['longitude'],

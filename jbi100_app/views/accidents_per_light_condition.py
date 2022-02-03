@@ -19,11 +19,20 @@ class AccidentsPerLightCondition(html.Div):
             ]
         )
 
-    def update(self, selected_year=None):
+    # Code derived from plotly docs
+    def update(self, selected_year=None, selected_data=None):
         if selected_year is None:
             selected_year = self.df
 
-        self.fig = px.histogram(selected_year, x='light_conditions')
+        if selected_data is not None:
+            selected_index = [  # show only selected indices
+                x['customdata'][0]
+                for x in selected_data['points']
+            ]
+
+            selected_year = selected_year[selected_year.accident_index.isin(selected_index)]
+
+        self.fig = px.histogram(selected_year, x='light_conditions', labels={"light_conditions": "Light Condition"})
         self.fig.update_layout(bargap=0.2)
 
         return self.fig

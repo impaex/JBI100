@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 
-
+# Template from course template
 class AccidentsPerHour(html.Div):
 
     def __init__(self, name, df):
@@ -14,13 +14,14 @@ class AccidentsPerHour(html.Div):
         # Equivalent to `html.Div([...])`
         super().__init__(
             children=[
-                html.H6("Average amount of accidents per hour of the day"),
+                html.H6("Amount of accidents per hour of the day"),
                 dcc.Graph(figure=self.update())
             ]
         )
 
     def update(self):
-        self.fig = px.histogram(self.df, x='hour')
+        # Code derived from plotly docs
+        self.fig = px.histogram(self.df, x='hour', color='accident_severity', labels={"accident_severity": "Severity"}, color_discrete_sequence=['darkblue', 'blue', '#00A1E4'])
         self.fig.update_layout(bargap=0.2)
 
         return self.fig

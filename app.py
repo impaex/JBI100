@@ -6,7 +6,7 @@ from jbi100_app.views.map import Map
 from jbi100_app.views.accidents_per_hour_of_day import AccidentsPerHour
 from jbi100_app.views.accidents_per_vehicle_type import AccidentsPerVehicleType
 from jbi100_app.views.accidents_per_light_condition import AccidentsPerLightCondition
-from jbi100_app.views.accidents_per_day_of_year import AccidentPerDayOfYear
+from jbi100_app.views.accidents_per_day_of_week import AccidentPerDayOfWeek
 from jbi100_app.data import get_data
 
 from dash import html
@@ -22,7 +22,7 @@ if __name__ == '__main__':
     accidentsperhour = AccidentsPerHour("Histogram Of Accidents Per Hour", df)
     accidentspertype = AccidentsPerVehicleType("Histogram Of Accidents Per Hour", df)
     accidentsperlight = AccidentsPerLightCondition("Histogram of accidents per light condition", df)
-    #accidentsperday = AccidentPerDayOfYear("Line Chart Of Accidents Per Day Per Year", df)
+    accidentsperweek = AccidentPerDayOfWeek("Histogram Of Accidents Per Week", df)
 
     app.layout = html.Div(
         id="app-container",
@@ -57,7 +57,8 @@ if __name__ == '__main__':
                 id="right-column",
                 className="three columns",
                 children=[
-                    accidentsperhour
+                    accidentsperhour,
+                    accidentsperweek
                 ],
             ),
         ],
@@ -72,16 +73,16 @@ if __name__ == '__main__':
                   Input('roadTypeSelector', 'value'),
                   Input('weatherConditionSelector', 'value'),
                   Input('vehicleTypeSelector', 'value'),
-                  Input('lightConditionSelector', 'value')
+                  Input('lightConditionSelector', 'value'),
+                  Input(map.html_id, 'selectedData')
                   )
-    def year_selector(year, roadtype, weathercond, vehicletype, lightcond):
+    def year_selector(year, roadtype, weathercond, vehicletype, lightcond, sel_data):
         temp = df[df.accident_year == year]
-
-        # if roadtype is not None:
-        #     if len(roadtype) > 0:
-        #         temp = temp[temp.road_type.isin(roadtype)]
-        #     else:
-        #         temp = temp[temp.road_type.isin(df.road_type.unique())]
+        if roadtype is not None:
+            if len(roadtype) > 0:
+                temp = temp[temp.road_type.isin(roadtype)]
+            else:
+                temp = temp[temp.road_type.isin(df.road_type.unique())]
 
         # If it is none, it has not been interacted with yet, no need to do anything.
         if weathercond is not None:
@@ -103,6 +104,10 @@ if __name__ == '__main__':
             else:
                 temp = temp[temp.light_conditions.isin(df.light_conditions.unique())]
 
-        return map.update(selected_year=temp), accidentsperlight.update(selected_year=temp), accidentspertype.update(selected_year=temp)
+        print(sel_data)
+
+        return map.update(selected_year=temp),  accidentsperlight.update(selected_year=temp, selected_data=sel_data), accidentspertype.update(selected_year=temp, selected_data=sel_data)
+
+
 
     app.run_server(debug=False, dev_tools_ui=False)
