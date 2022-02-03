@@ -127,9 +127,7 @@ def generate_buttons():
                         )
                     ])
                 ])
-            ]),
-            html.P("If no graphs are visible, there's no data for the given filters.")
-
+            ])
         ]
     )
 

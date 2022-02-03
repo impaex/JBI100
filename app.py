@@ -13,7 +13,7 @@ from dash import html
 import plotly.express as px
 from dash.dependencies import Input, Output
 
-
+# code derived from template
 if __name__ == '__main__':
     # Create data
     df = get_data()
@@ -104,10 +104,7 @@ if __name__ == '__main__':
             else:
                 temp = temp[temp.light_conditions.isin(df.light_conditions.unique())]
 
-        print(sel_data)
-
-        return map.update(selected_year=temp),  accidentsperlight.update(selected_year=temp, selected_data=sel_data), accidentspertype.update(selected_year=temp, selected_data=sel_data)
-
+        return map.update(selected_year=temp, selected_data=sel_data),  accidentsperlight.update(selected_year=temp, selected_data=sel_data), accidentspertype.update(selected_year=temp, selected_data=sel_data)
 
 
     app.run_server(debug=False, dev_tools_ui=False)

@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 
-
+# Template from course template
 class AccidentsPerLightCondition(html.Div):
 
     def __init__(self, name, df):
