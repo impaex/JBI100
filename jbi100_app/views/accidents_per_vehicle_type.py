@@ -19,18 +19,11 @@ class AccidentsPerVehicleType(html.Div):
                 dcc.Graph(figure=self.update(), id=self.html_id)
             ]
         )
+
     # Code derived from plotly docs
-    def update(self, selected_year=None, selected_data=None):
+    def update(self, selected_year=None):
         if selected_year is None:
             selected_year = self.df
-
-        if selected_data is not None:
-            selected_index = [  # show only selected indices
-                x['customdata'][0]
-                for x in selected_data['points']
-                ]
-
-            selected_year = selected_year[selected_year.accident_index.isin(selected_index)]
 
         selected_yearx = selected_year[['vehicle_type', 'accident_index']].groupby('vehicle_type')['accident_index'].count().reset_index(
             name='Count').sort_values(['Count'], ascending=False).head(10)

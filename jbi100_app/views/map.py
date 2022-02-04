@@ -20,7 +20,7 @@ class Map(html.Div):
             ]
         )
 
-    def update(self, selected_year=None, selected_data=None):
+    def update(self, selected_year=None):
         # Code derived from plotly docs
         if selected_year is None:
             selected_year = self.df
@@ -58,18 +58,5 @@ class Map(html.Div):
                                title_y=0.95,
                                title_font_color="black"
                                )
-
-        # highlight points with selection other graph
-        if selected_data is not None:
-            selected_index = [  # show only selected indices
-                x.get('pointIndex', None)
-                for x in selected_data['points']
-            ]
-            print(selected_index)
-            self.fig.data[0].update(
-                selectedpoints=selected_index,
-                # color of unselected pts
-                unselected=dict(marker=dict(opacity=0.5))
-            )
 
         return self.fig

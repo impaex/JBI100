@@ -104,7 +104,11 @@ if __name__ == '__main__':
             else:
                 temp = temp[temp.light_conditions.isin(df.light_conditions.unique())]
 
-        return map.update(selected_year=temp, selected_data=sel_data),  accidentsperlight.update(selected_year=temp, selected_data=sel_data), accidentspertype.update(selected_year=temp, selected_data=sel_data)
+        if sel_data is not None:
+            selected_index = [x['customdata'][0] for x in sel_data['points']]
+            temp = temp[temp.accident_index.isin(selected_index)]
+
+        return map.update(selected_year=temp),  accidentsperlight.update(selected_year=temp), accidentspertype.update(selected_year=temp)
 
 
     app.run_server(debug=False, dev_tools_ui=False)
